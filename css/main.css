@@ -27,7 +27,11 @@
 :root{
   --cor-primaria: #047b6c
 }
- 
+
+.display-flex{
+  display: flex;
+}
+
 .bootstrap-switch {
   display: inline-block;
   direction: ltr;

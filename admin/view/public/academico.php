@@ -14,21 +14,21 @@ extract($_GET);
     <title>form para o usuario</title>
 
     <!-- iCheck for checkboxes and radio inputs -->
-    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Bootstrap Color Picker -->
-    <link rel="stylesheet" href="plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+    <link rel="stylesheet" href="../../plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
     <!-- daterange picker -->
-    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 
-    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
 
-    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css
+    <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css
     ">
 
 
@@ -181,7 +181,7 @@ extract($_GET);
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
-                <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">AdminLTE 3</span>
             </a>
 
@@ -190,7 +190,7 @@ extract($_GET);
                 <!-- Sidebar user (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">Alexander Pierce</a>
@@ -211,7 +211,7 @@ extract($_GET);
 
                 <!-- Sidebar Menu -->
                 <?php
-                include_once('pages/menu.php')
+                require_once('../../pages/menu.php')
                 ?>
                 <!-- /.sidebar-menu -->
             </div>
@@ -237,13 +237,8 @@ extract($_GET);
                                 <!-- /.card-header -->
                                 <!-- form start -->
 
-                                <?php
-
-                                //require_once("select_about_id.php");
-
-                                ?>
-
-                                <form action="view/view_academico.php" method="POST">
+                               
+                                <form action="../view_academico.php" method="POST">
                                     <div class="card-body">
 
 
@@ -321,15 +316,13 @@ extract($_GET);
                                                 <div class="container ">
                                                     <div class="h4 text-center mb-4 title">Experiências</div>
                                                     <?php
-                                                    //require_once("academico_select.php");
-                                                    require_once("model/Sql.php");
-                                                    require_once("model/user/Academico.php");
-                                                    require_once("controller/Controller_Academico.php");
+                                                    require_once("../../model/Sql.php");
+                                                    require_once("../../model/user/Academico.php");
+                                                    require_once("../../controller/Controller_Academico.php");
                                                     $objectController = new Controller_Academico(1);
                                                     $results = $objectController->selectAll();
 
                                                     for ($i = 0; $i != count($results); $i++) {
-
 
                                                     ?>
                                                         <div class="card" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
@@ -343,7 +336,7 @@ extract($_GET);
                                                                     <div style="width:50%; display: flex; justify-content:flex-end; align-items:center">
 
 
-                                                                        <a href="view/view_academico.php?id=<?php echo ($results[$i]["id"]); ?>">Deletar</a>
+                                                                        <a href="../view_academico.php?id=<?php echo ($results[$i]["id"]); ?>">Deletar</a>
 
                                                                     </div>
                                                                 </div>
@@ -395,21 +388,21 @@ extract($_GET);
 
 
     <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="../../plugins/jquery/jquery.min.js"></script>
 
-    <script src="plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="../../plugins/daterangepicker/daterangepicker.js"></script>
 
     <!-- Bootstrap 4 -->
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- bs-custom-file-input -->
-    <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="dist/js/adminlte.min.js"></script>
+    <script src="../../dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="dist/js/demo.js"></script>
+    <script src="../../dist/js/demo.js"></script>
     <!-- Page specific script -->
 
-    <script src="plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="../../plugins/summernote/summernote-bs4.min.js"></script>
 
 
 

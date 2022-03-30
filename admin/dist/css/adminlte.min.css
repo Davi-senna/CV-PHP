@@ -8094,6 +8094,10 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover {
         align-content: space-around !important
     }
 
+    .display-flex{
+        display: flex;
+      }
+
     .align-content-xl-stretch {
         -ms-flex-line-pack: stretch !important;
         align-content: stretch !important

@@ -3,7 +3,7 @@ require_once("select.php")
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
   <meta charset="utf-8">
@@ -24,270 +24,129 @@ require_once("select.php")
 
 <body class="hold-transition sidebar-mini">
   <div class="wrapper">
-    <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-      <!-- Left navbar links -->
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="index3.html" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">Contact</a>
-        </li>
-      </ul>
 
-      <!-- Right navbar links -->
-      <ul class="navbar-nav ml-auto">
-        <!-- Navbar Search -->
-        <li class="nav-item">
-          <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-            <i class="fas fa-search"></i>
-          </a>
-          <div class="navbar-search-block">
-            <form class="form-inline">
-              <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                  <button class="btn btn-navbar" type="submit">
-                    <i class="fas fa-search"></i>
-                  </button>
-                  <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </li>
 
-        <!-- Messages Dropdown Menu -->
-        <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="far fa-comments"></i>
-            <span class="badge badge-danger navbar-badge">3</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    Brad Diesel
-                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">Call me whenever you can...</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    John Pierce
-                    <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">I got your message bro</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    Nora Silvester
-                    <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">The subject goes here</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-          </div>
-        </li>
-        <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="far fa-bell"></i>
-            <span class="badge badge-warning navbar-badge">15</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <span class="dropdown-item dropdown-header">15 Notifications</span>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-envelope mr-2"></i> 4 new messages
-              <span class="float-right text-muted text-sm">3 mins</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-users mr-2"></i> 8 friend requests
-              <span class="float-right text-muted text-sm">12 hours</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-file mr-2"></i> 3 new reports
-              <span class="float-right text-muted text-sm">2 days</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-            <i class="fas fa-expand-arrows-alt"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-            <i class="fas fa-th-large"></i>
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <!-- /.navbar -->
-
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
-      </a>
-
-      <!-- Sidebar -->
-      <div class="sidebar">
-        <!-- Sidebar user (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-            <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-          </div>
-          <div class="info">
-            <a href="#" class="d-block">Alexander Pierce</a>
-          </div>
-        </div>
-
-        <!-- SidebarSearch Form -->
-        <div class="form-inline">
-          <div class="input-group" data-widget="sidebar-search">
-            <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-            <div class="input-group-append">
-              <button class="btn btn-sidebar">
-                <i class="fas fa-search fa-fw"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sidebar Menu -->
-        <?php
-        include_once('pages/menu.php')
-        ?>
-        <!-- /.sidebar-menu -->
-      </div>
-      <!-- /.sidebar -->
-    </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
-      <section class="content-header">
-        <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1>DataTables</h1>
-            </div>
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">DataTables</li>
-              </ol>
-            </div>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Tabela de usuários</h1>
           </div>
-        </div><!-- /.container-fluid -->
-      </section>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
 
-      <!-- Main content -->
-      <section class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">DataTable with default features</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                  <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                      <tr>
-                        <th>Id</th>
-                        <th>Nome</th>
-                        <th>email</th>
-                        <th>status</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card hidden-inativo">
+              <div class="card-header">
+                <h3 class="card-title">Tabela de ilustração de usuarios existentes</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Nome</th>
+                      <th>email</th>
+                      <th>status</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
 
                     <?php
-                    for($i = 0; $i !=count($results);$i++){
+                    for ($i = 0; $i != count($results); $i++) {
                     ?>
                       <tr>
                         <td><?php
-                          echo($results[$i]["usu_id_usuario"]);
-                        ?></td>
+                            echo ($results[$i]["usu_id_usuario"]);
+                            ?></td>
                         <td><?php
-                          echo($results[$i]["usu_nome"]);
-                        ?></td>
+                            echo ($results[$i]["usu_nome"]);
+                            ?></td>
                         <td><?php
-                          echo($results[$i]["usu_email"]);
-                        ?></td>
+                            echo ($results[$i]["usu_email"]);
+                            ?></td>
                         <td><?php
-                        if($results[$i]["usu_status"] == 1){
-                          echo("Ativo");
-                        }else{
-                          echo("Inativo");
-                        }
-                        ?></td>
+                            if ($results[$i]["usu_status"] == 1) {
+                              echo ("Ativo");
+                            } else {
+                              echo ("Inativo");
+                            }
+                            ?></td>
                         <td>
-                          <a href="usuario_update.php?id=<?php echo($results[$i]["usu_id_usuario"]) ?>">Editar</a>
-                          <a href="delete.php?id=<?php echo($results[$i]["usu_id_usuario"]) ?>">Deletar</a>
+                          <div class="container-button">
+                            <a class="col-2 btn-user btn btn-primary" href="javascript:trocarHidden()">Entrar</a>
+                            <a class="col-2 btn-user btn btn-block btn-warning" href="usuario_update.php?id=<?php echo ($results[$i]["usu_id_usuario"]) ?>">Editar</a>
+                            <a class="col-2 btn-user btn btn-danger" href="delete.php?id=<?php echo ($results[$i]["usu_id_usuario"]) ?>">Deletar</a>
+
+
+                          </div>
+
                         </td>
                       </tr>
-                      <?php
-                      }
-                      ?>
-                    </tbody>
-                  </table>
+                    <?php
+                    }
+                    ?>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+
+            </div>
+            <div class="hidden-inativo container-button container-button-add">
+              <a class="col-2 btn-user btn btn-success" href="usuario_form.php">Adicionar usuário</a>
+
+
+            </div>
+            <!-- /.card -->
+            <div class="form-hidden hidden-ativo card card-primary col-8">
+              <div class="card-header">
+                <h3 class="card-title">Fazer login</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form action="../insert.php" method="POST">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Digite seu e-mail</label>
+                    <input type="email" name="email" required class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Digite sua senha</label>
+                    <input type="password" name="password" required class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  </div>
+
                 </div>
                 <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
+
+                <div class="card-footer">
+
+                  <button type="submit" class="col-4 btn btn-primary">Entrar</button>
+                  <a class="link-voltar" href="javascript:trocarHidden()">Voltar</a>
+                </div>
+              </form>
             </div>
-            <!-- /.col -->
           </div>
-          <!-- /.row -->
+          <!-- /.col -->
         </div>
-        <!-- /.container-fluid -->
-      </section>
-      <!-- /.content -->
-    </div>
+        <!-- /.row -->
+      </div>
+
+      <!-- /.container-fluid -->
+
+    </section>
+
+
+    <!-- /.content -->
     <!-- /.content-wrapper -->
     <footer class="main-footer">
       <div class="float-right d-none d-sm-block">
@@ -344,7 +203,55 @@ require_once("select.php")
         "responsive": true,
       });
     });
+
+    function trocarHidden(){
+    var hidden = document.querySelectorAll(".hidden-ativo")
+    var noHidden = document.querySelectorAll(".hidden-inativo")
+    
+    hidden.forEach(
+        element => {
+            element.classList.add("hidden-inativo");
+            element.classList.remove("hidden-ativo");
+        }
+    )
+
+    noHidden.forEach(
+        element => {
+            element.classList.add("hidden-ativo");
+            element.classList.remove("hidden-inativo");
+        }
+    )
+}
   </script>
+  <style>
+    .container-button {
+      display: flex;
+      align-items: center;
+
+    }
+
+    .container-button-add {
+      justify-content: flex-end;
+      margin-bottom: 15vh;
+    }
+
+    .btn-user {
+      height: 40px !important;
+      margin: 0 5px;
+    }
+
+    .hidden-ativo {
+      display: none;
+    }
+
+    .link-voltar {
+      margin-left: 2vw;
+    }
+
+    .form-hidden{
+      margin-bottom: 38vh;
+    }
+  </style>
 </body>
 
 </html>

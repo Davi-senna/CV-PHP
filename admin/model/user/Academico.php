@@ -144,12 +144,6 @@ class Academico{
 
         $this->feedClass($user_data);
     }
-
-    public function __construct($id_usuario){
-        $this->conn = new Sql();
-        $this->setId_usuario($id_usuario);
-    }
-
     
     public function pushInsert(){
         $this->conn->execQuery("INSERT INTO academico(id_usuario,experiencia,instituicao,nivel,data_inicio,data_termino,descricao) 
@@ -211,6 +205,11 @@ class Academico{
             ");
         }
 
+    }
+
+    public function __construct($id_usuario){
+        $this->conn = new Sql();
+        $this->setId_usuario($id_usuario);
     }
 }
 

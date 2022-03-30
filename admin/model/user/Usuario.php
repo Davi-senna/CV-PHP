@@ -58,27 +58,71 @@ class Usuario{
         $this->status = $value;
     }
 
-    public function __construct($id){
+    public function __construct($id_usuario = "Em processo de criação"){
         $this->conn = new Sql();
-        $results = $this->conn->select("SELECT * FROM cv_usuario WHERE usu_id_usuario = $id");
-        //var_dump($results);
+        $this->setId($id_usuario);
+    }
 
-        if(count($results) == 1){
-        $user_data = $results[0];
+    //Metodo para alimentar a classe
+    public function feedClass($user_data){
+        
+        if(count($user_data) != 0){
 
-        $this->setId($user_data["usu_id_usuario"]);
-        $this->setNome($user_data["usu_nome"]);
-        $this->setEmail($user_data["usu_email"]);
-        $this->setSenha($user_data["usu_senha"]);
-        $this->setLogin($user_data["usu_login"]);
-        $this->setStatus($user_data["usu_status"]);
+            $this->setId($user_data["usu_id_usuario"]);
+            $this->setNome($user_data["nome"]);
+            $this->setEmail($user_data["email"]);
+            $this->setSenha($user_data["senha"]);
+            $this->setLogin($user_data["login"]);
+            $this->setStatus($user_data["status"]);
         
         }else{
-            throw new Exception($message = "Usuario não existe");
+            throw new Exception($message = "Experiência não existe");
         }
-        
+    
+    }
+
+    //Metodo de alimentação por valores para metodos como insert ou update
+    public function pushFeedClass($nome,$email,$senha,$login,$status){
+        if($this->getId() == null){
+            $id = "Em processo de criação";
+        }else{
+            $id = $this->getId();
+        }
+        $user_data = array(
+            "nome" => $nome,
+            "email" => $email,
+            "senha" => $senha,
+            "login" => $login,
+            "status" => $status,
+            "id" => $id,
+        );
+
+        $this->feedClass($user_data);
+    }
+
+    //Metodo de alimentação por select
+    public function pullFeedClass(){
+
+        $user_data = $this->selectSpecific();
+
+        $this->feedClass($user_data);
+    }
+
+    //Select especifico
+    public function selectSpecific(){
+        $results = $this->conn->select("SELECT * FROM cv_usuario WHERE usu_id_usuario = $this->id");
+        //var_dump($results);
+        return $results[0];
+    }
+
+    public function selectAll(){
+        $results = $this->conn->select("SELECT * FROM cv_usuario");
+        return $results;
     }
 }
+
+
+
 
 /*
 try {
@@ -87,3 +131,16 @@ try {
     echo "erro";
 }
 */
+
+/*
+$teste2 = new Usuario();
+$teste2->pushFeedClass("teste","teste","teste","teste","teste");
+var_dump($teste2->getId());
+*/
+
+
+/*
+$teste3 = new Usuario(7);
+$teste3->pullFeedClass();
+var_dump($teste3->getEmail());*/
+
