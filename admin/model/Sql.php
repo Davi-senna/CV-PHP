@@ -13,7 +13,8 @@ class Sql{
         }
 
     public function execQuery($rawQuery,$params = array()){
-        //var_dump($rawQuery);
+        // var_dump($rawQuery);
+        // var_dump($params);
         $stmt = $this->conn->prepare("$rawQuery");
         $this->setParams($stmt,$params);
         //var_dump($stmt);

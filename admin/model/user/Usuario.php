@@ -94,7 +94,7 @@ class Usuario{
             "senha" => $senha,
             "login" => $login,
             "status" => $status,
-            "id" => $id,
+            "usu_id_usuario" => $id
         );
 
         $this->feedClass($user_data);
@@ -119,6 +119,50 @@ class Usuario{
         $results = $this->conn->select("SELECT * FROM cv_usuario");
         return $results;
     }
+
+    public function pushInsert(){
+        $this->conn->execQuery("INSERT INTO cv_usuario(nome,email,senha,login,status) 
+        Values (
+            :NOME,
+            :EMAIL,
+            :SENHA,
+            :LOGIN,
+            :STATUS
+
+        )
+    ", array(
+        ":NOME" => $this->getNome(),
+        ":EMAIL" => $this->getEmail(),
+        ":SENHA" => $this->getSenha(),
+        ":LOGIN" => $this->getLogin(),
+        ":STATUS" => $this->getStatus()
+
+    ));
+    }
+
+    
+    public function pushUpdate($nome,$email,$senha,$login,$status){
+
+        $this->pushFeedClass($nome,$email,$senha,$login,$status);
+
+        $this->conn->execQuery("UPDATE cv_usuario  
+            SET 
+                nome = :NOME,
+                email = :EMAIL,
+                senha = :SENHA,
+                login = :LOGIN,
+                status = :STATUS
+
+            WHERE usu_id_usuario = $this->id
+                ", array(
+                ":NOME" => $this->getNome(),
+                ":EMAIL" => $this->getEmail(),
+                ":SENHA" => $this->getSenha(),
+                ":LOGIN" => $this->getLogin(),
+                ":STATUS" => $this->getStatus()
+            )
+        );
+    }
 }
 
 
@@ -142,5 +186,18 @@ var_dump($teste2->getId());
 /*
 $teste3 = new Usuario(7);
 $teste3->pullFeedClass();
-var_dump($teste3->getEmail());*/
+var_dump($teste3->getEmail());
+*/
 
+/*
+$teste4 = new Usuario(1);
+$teste4->pushFeedClass("teste2","teste2","teste2","teste2",1);
+$teste4->pushInsert();
+*/
+
+/*
+$teste5 = new Usuario(6);
+$teste5->pullFeedClass();
+var_dump($teste5->getId());
+$teste5->pushUpdate("tdoaaa","testando","test","test",1);
+*/
