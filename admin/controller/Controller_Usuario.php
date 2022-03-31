@@ -1,28 +1,37 @@
 <?php
 
-class Controller_Academico{
+class Controller_Usuario{
 
     private $instanceModel;
 
-    public function __construct($id_usuario){
+    public function __construct($id_usuario = "Em processo de criação"){
         $this->instanceModel = new Usuario($id_usuario);
     }
     
     public function selectAll(){
 
-        $results = $this->instanceModel->selectAllByUserId();
+        $results = $this->instanceModel->selectAllUser();
         return $results;
     }
 
-    public function comfirmUser($_GET){
-        extract($_GET);
+    public function comfirmUser($user_data){
+        extract($user_data);
         $results = $this->instanceModel->validUser($login,$senha);
         return $results;
 
     }
     
-    public function addUser($_GET){
-        extract($_GET);
+    public function addUser($user_data){
+        extract($user_data);
         $this->instanceModel->pushInsert($nome,$email,$senha,$login,$status);
+    }
+
+    public function updateUser($user_data){
+        extract($user_data);
+        $this->instanceModel->pushUpdate($nome,$email,$senha,$login,$status);
+    }
+
+    public function deleteUser(){
+        $this->instanceModel->delete();
     }
 }

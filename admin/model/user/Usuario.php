@@ -1,7 +1,5 @@
 <?php
 
-require_once("../Sql.php");
-
 class Usuario{
 
     private $id;
@@ -115,7 +113,7 @@ class Usuario{
         return $results[0];
     }
 
-    public function selectAll(){
+    public function selectAllUser(){
         $results = $this->conn->select("SELECT * FROM cv_usuario");
         return $results;
     }
