@@ -64,7 +64,7 @@ class Usuario{
     }
 
     //Metodo para alimentar a classe
-    public function feedClass($user_data){
+    private function feedClass($user_data){
         
         if(count($user_data) != 0){
 
@@ -82,7 +82,7 @@ class Usuario{
     }
 
     //Metodo de alimentação por valores para metodos como insert ou update
-    public function pushFeedClass($nome,$email,$senha,$login,$status){
+    private function pushFeedClass($nome,$email,$senha,$login,$status){
         if($this->getId() == null){
             $id = "Em processo de criação";
         }else{
@@ -120,7 +120,10 @@ class Usuario{
         return $results;
     }
 
-    public function pushInsert(){
+    public function pushInsert($nome,$email,$senha,$login,$status){
+
+        $this->pushFeedClass($nome,$email,$senha,$login,$status);
+
         $this->conn->execQuery("INSERT INTO cv_usuario(nome,email,senha,login,status) 
         Values (
             :NOME,
@@ -163,9 +166,47 @@ class Usuario{
             )
         );
     }
+
+    public function delete(){
+
+        if($this->getId() == "Em processo de criação"){
+            throw new Exception($message = "Usuario em processo de criação e não pode ser deletada");
+        }else{
+            $this->conn->execQuery(" DELETE from cv.cv_usuario where usu_id_usuario = $this->id");
+        }
+
+    }
+
+    public function validUser($login,$senha){
+
+        $user_data = $this->conn->select("SELECT * FROM cv_usuario WHERE login = $login");
+
+        if(!empty($user_data)){
+
+            if($user_data[0]["senha"] == $senha){
+                    return array(
+                        "valid" => 1,
+                        "id" => $user_data[0]["usu_id_usuario"],
+                        "objectUser" => new Usuario($user_data[0]["usu_id_usuario"])
+                    );
+            }else{
+                return array(
+                    "valid" => 0,
+                    "error" => "Senha invalida"
+                );
+            }
+
+        }else{
+            return array(
+                "valid" => 0,
+                "error" => "Login não encontrado"
+            );
+        }   
+
+    }
 }
 
-
+//adicionar tratamento de erros
 
 
 /*
@@ -200,4 +241,16 @@ $teste5 = new Usuario(6);
 $teste5->pullFeedClass();
 var_dump($teste5->getId());
 $teste5->pushUpdate("tdoaaa","testando","test","test",1);
+*/
+
+/*
+$teste6 = new Usuario(9);
+$teste6->pullFeedClass();
+var_dump($teste6->getId());
+$teste6->delete();
+*/
+
+/*
+$teste7 = new Usuario();
+var_dump($teste7->validUser("'davifsena2@gmail.com'","085a7fda2455056e6ce2042a1dcfb759"));
 */

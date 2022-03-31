@@ -118,7 +118,7 @@ class Academico{
     }
 
     //Metodo de alimentação por valores para metodos como insert ou update
-    public function pushFeedClass($nome_experiencia,$instituicao,$nivel,$data_inicio,$data_termino,$descricao){
+    private function pushFeedClass($nome_experiencia,$instituicao,$nivel,$data_inicio,$data_termino,$descricao){
         if($this->getId() == null){
             $id = "Em processo de criação";
         }else{
@@ -138,14 +138,17 @@ class Academico{
     }
 
     //Metodo de alimentação por select
-    public function pullFeedClass($id){
+    private function pullFeedClass($id){
 
         $user_data = $this->selectSpecific($id);
 
         $this->feedClass($user_data);
     }
     
-    public function pushInsert(){
+    public function pushInsert($nome_experiencia,$instituicao,$nivel,$data_inicio,$data_termino,$descricao){
+
+        $this->pushFeedClass($nome_experiencia,$instituicao,$nivel,$data_inicio,$data_termino,$descricao);
+
         $this->conn->execQuery("INSERT INTO academico(id_usuario,experiencia,instituicao,nivel,data_inicio,data_termino,descricao) 
         Values (
             :ID,
