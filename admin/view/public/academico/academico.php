@@ -2,6 +2,8 @@
 
 extract($_GET);
 require_once("../public_config.php");
+require_once("../../../controller/Controller_Academico.php");
+require_once("../../../model/user/Academico.php");
 
 ?>
 
@@ -307,7 +309,6 @@ require_once("../public_config.php");
                                                 <div class="container ">
                                                     <div class="h4 text-center mb-4 title">Experiências</div>
                                                     <?php
-
                                                     $objectController = new Controller_Academico(1);
                                                     $results = $objectController->selectAll();
 
@@ -325,7 +326,7 @@ require_once("../public_config.php");
                                                                     <div style="width:50%; display: flex; justify-content:flex-end; align-items:center">
 
 
-                                                                        <a href="../view_academico.php?id=<?php echo ($results[$i]["id"]); ?>">Deletar</a>
+                                                                        <a href="../../view_academico.php?id=<?php echo ($results[$i]["id"]); ?>&&stmt=delete">Deletar</a>
 
                                                                     </div>
                                                                 </div>

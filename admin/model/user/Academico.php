@@ -138,7 +138,7 @@ class Academico{
     }
 
     //Metodo de alimentação por select
-    private function pullFeedClass($id){
+    public function pullFeedClass($id){
 
         $user_data = $this->selectSpecific($id);
 
@@ -199,14 +199,11 @@ class Academico{
         );
     }
 
-    public function delete(){
+    public function delete($id){
 
-        if($this->getId() == "Em processo de criação"){
-            throw new Exception($message = "Experiencia em processo de criação e não pode ser deletada");
-        }else{
-            $this->conn->execQuery(" DELETE from cv.academico where id_usuario = $this->id_usuario and id = $this->id
+            $this->conn->execQuery(" DELETE from cv.academico where id_usuario = $this->id_usuario and id = $id
             ");
-        }
+
 
     }
 

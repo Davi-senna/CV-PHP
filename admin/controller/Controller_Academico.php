@@ -1,17 +1,16 @@
 <?php
 
-
 class Controller_Academico{
 
-    private $instanceModel;
+    private $objectAcademico;
 
     public function __construct($id_usuario){
-        $this->instanceModel = new Academico($id_usuario);
+        $this->objectAcademico = new Academico($id_usuario);
     }
     
     public function selectAll(){
 
-       return $this->instanceModel->selectAllByUserId();
+       return $this->objectAcademico->selectAllByUserId();
 
     }
 
@@ -28,6 +27,12 @@ class Controller_Academico{
 
         return $instances;
     }
+
+    public function deleteAcademico($id){
+        
+        $this->objectAcademico->delete($id);
+
+    }
 }
 
 
@@ -37,7 +42,7 @@ $teste = new Controller_Academico(1);
 //var_dump($teste->selectAll());
 //var_dump($teste->getInstances());
 echo "<br><br>";
-$instances = $teste->getInstances();
+$instances = $teste->deleteAcademico(22);
 //var_dump($instances[0]);
 echo "<br><br>";
 $instance = $instances[0];
