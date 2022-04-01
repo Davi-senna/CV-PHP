@@ -31,7 +31,7 @@ class Controller_Usuario{
         $this->instanceModel->pushUpdate($nome,$email,$senha,$login,$status);
     }
 
-    public function deleteUser(){
-        $this->instanceModel->delete();
+    public function deleteUser($id_usuario){
+        $this->instanceModel->delete($id_usuario);
     }
 }

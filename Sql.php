@@ -11,7 +11,7 @@ class Sql extends PDO{
         }
 
     public function execQuery($rawQuery,$params = array()){
-
+        var_dump($rawQuery);
         $stmt = $this->conn->prepare("$rawQuery");
         $stmt->execute();
         return $stmt;

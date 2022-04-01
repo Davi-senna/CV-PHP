@@ -99,7 +99,7 @@ class Usuario{
     }
 
     //Metodo de alimentação por select
-    public function pullFeedClass(){
+    private function pullFeedClass(){
 
         $user_data = $this->selectSpecific();
 
@@ -165,7 +165,9 @@ class Usuario{
         );
     }
 
-    public function delete(){
+    public function delete($id){
+        $this->setId($id);
+        $this->pullFeedClass();
 
         if($this->getId() == "Em processo de criação"){
             throw new Exception($message = "Usuario em processo de criação e não pode ser deletada");

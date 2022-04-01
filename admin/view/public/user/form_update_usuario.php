@@ -6,7 +6,7 @@ extract($_GET);
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="utf-8">
@@ -16,9 +16,9 @@ extract($_GET);
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../../../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -162,57 +162,19 @@ extract($_GET);
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
-                <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
-            </a>
 
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar user (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
-                    </div>
-                </div>
-
-                <!-- SidebarSearch Form -->
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sidebar Menu -->
-                <?php
-                include_once('pages/menu.php')
-                ?>
-                <!-- /.sidebar-menu -->
-            </div>
-            <!-- /.sidebar -->
-        </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
 
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <?php
-                            if(isset($_GET['sucess'])){
-                        ?>
+        <!-- Content Header (Page header) -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <?php
+                    if (isset($_GET['sucess'])) {
+                    ?>
                         <div class="alert alert-success alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             <h5><i class="icon fas fa-check"></i> Sucesso!</h5>
@@ -220,68 +182,67 @@ extract($_GET);
                             echo $_GET['sucess'];
                             ?>
                         </div>
-                        <?php
-                        }
-                        ?>
-                        <!-- left column -->
-                        <div class="col-md-12">
-                            <!-- general form elements -->
-                            <div class="card card-primary">
-                                <div class="card-header">
-                                    <h3 class="card-title">edição de usuários</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <!-- form start -->
-
-                                <?php
-                                
-                                    require_once("select_id.php");
-
-                                ?>
-
-                                <form action="update.php" method="POST">
-                                    <input type="hidden" name="id" value="<?php echo($id)?>">
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <label for="exampleInputName1">Digite o novo nome</label>
-                                            <input type="text" required name="name" value="<?php echo($usuario["usu_nome"]);?>" class="form-control" id="exampleInputName1" placeholder="Enter Name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputUser1">Digite o novo nome do usuario</label>
-                                            <input type="text" required name="user" value="<?php echo($usuario["usu_login"]);?>" class="form-control" id="exampleInputUser1" placeholder="Enter user">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Digite o novo e-mail</label>
-                                            <input type="email" required value="<?php echo($usuario["usu_email"]);?>" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Digite a nova senha</label>
-                                            <input type="password" required  name="password" class="form-control" id="exampleInputPassword1" placeholder="Atualize sua senha">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Ativo</label>
-                                            <input type="checkbox" <?php if($usuario["usu_status"] == 1){echo "checked";}?> name="situacao" id="exampleInputSituacao1">
-                                        </div>
-
-                                    </div>
-                                    <!-- /.card-body -->
-
-                                    <div class="card-footer">
-
-                                        <button type="submit" class="btn btn-primary">Alterar</button>
-                                    </div>
-                                </form>
+                    <?php
+                    }
+                    ?>
+                    <!-- left column -->
+                    <div class="col-md-12">
+                        <!-- general form elements -->
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Edição de usuários</h3>
                             </div>
-                            <!-- /.card -->
+                            <!-- /.card-header -->
+                            <!-- form start -->
 
+                            <?php
 
+                            require_once("select_id.php");
+
+                            ?>
+
+                            <form action="update.php" method="POST">
+                                <input type="hidden" name="id" value="<?php echo ($id) ?>">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="exampleInputName1">Digite o novo nome</label>
+                                        <input type="text" required name="name" value="<?php echo ($usuario["usu_nome"]); ?>" class="form-control" id="exampleInputName1" placeholder="Enter Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputUser1">Digite o novo nome do usuario</label>
+                                        <input type="text" required name="user" value="<?php echo ($usuario["usu_login"]); ?>" class="form-control" id="exampleInputUser1" placeholder="Enter user">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Digite o novo e-mail</label>
+                                        <input type="email" required value="<?php echo ($usuario["usu_email"]); ?>" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Digite a nova senha</label>
+                                        <input type="password" required name="password" class="form-control" id="exampleInputPassword1" placeholder="Atualize sua senha">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Ativo</label>
+                                        <input type="checkbox" <?php if ($usuario["usu_status"] == 1) {
+                                                                    echo "checked";
+                                                                } ?> name="situacao" id="exampleInputSituacao1">
+                                    </div>
+
+                                </div>
+                                <!-- /.card-body -->
+
+                                <div class="card-footer">
+
+                                    <button type="submit" class="btn btn-primary">Alterar</button>
+                                </div>
+                            </form>
                         </div>
                         <!-- /.card -->
                     </div>
-                    <!--/.col (right) -->
+                    <!-- /.card -->
                 </div>
-                <!-- /.row -->
-        </div><!-- /.container-fluid -->
+                <!--/.col (right) -->
+            </div>
+            <!-- /.row -->
         </section>
         <!-- /.content -->
     </div>
@@ -302,15 +263,15 @@ extract($_GET);
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="../../../plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- bs-custom-file-input -->
-    <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="../../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="dist/js/adminlte.min.js"></script>
+    <script src="../../../dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="dist/js/demo.js"></script>
+    <script src="../../../dist/js/demo.js"></script>
     <!-- Page specific script -->
     <script>
         $(function() {

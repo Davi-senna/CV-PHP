@@ -1,5 +1,5 @@
 <?php
-require_once("select.php")
+require_once("../public_config.php")
 ?>
 
 <!DOCTYPE html>
@@ -13,13 +13,13 @@ require_once("select.php")
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="../../../plugins/fontawesome-free/css/all.min.css">
   <!-- DataTables -->
-  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -63,6 +63,8 @@ require_once("select.php")
                   <tbody>
 
                     <?php
+                    $objectController = new Controller_Usuario();
+                    $results = $objectController->selectAll();
                     for ($i = 0; $i != count($results); $i++) {
                     ?>
                       <tr>
@@ -70,13 +72,13 @@ require_once("select.php")
                             echo ($results[$i]["usu_id_usuario"]);
                             ?></td>
                         <td><?php
-                            echo ($results[$i]["usu_nome"]);
+                            echo ($results[$i]["nome"]);
                             ?></td>
                         <td><?php
-                            echo ($results[$i]["usu_email"]);
+                            echo ($results[$i]["email"]);
                             ?></td>
                         <td><?php
-                            if ($results[$i]["usu_status"] == 1) {
+                            if ($results[$i]["status"] == 1) {
                               echo ("Ativo");
                             } else {
                               echo ("Inativo");
@@ -85,8 +87,8 @@ require_once("select.php")
                         <td>
                           <div class="container-button">
                             <a class="col-2 btn-user btn btn-primary" href="javascript:trocarHidden()">Entrar</a>
-                            <a class="col-2 btn-user btn btn-block btn-warning" href="usuario_update.php?id=<?php echo ($results[$i]["usu_id_usuario"]) ?>">Editar</a>
-                            <a class="col-2 btn-user btn btn-danger" href="delete.php?id=<?php echo ($results[$i]["usu_id_usuario"]) ?>">Deletar</a>
+                            <a class="col-2 btn-user btn btn-block btn-warning" href="form_update_usuario.php?id=<?php echo ($results[$i]["usu_id_usuario"])?>">Editar</a>
+                            <a class="col-2 btn-user btn btn-danger" href="../../view_usuario.php?id=<?php echo ($results[$i]["usu_id_usuario"])?>&&stmt=delete">Deletar</a>
 
 
                           </div>
@@ -103,7 +105,7 @@ require_once("select.php")
 
             </div>
             <div class="hidden-inativo container-button container-button-add">
-              <a class="col-2 btn-user btn btn-success" href="usuario_form.php">Adicionar usuário</a>
+              <a class="col-2 btn-user btn btn-success" href="form_usuario.php">Adicionar usuário</a>
 
 
             </div>
@@ -164,26 +166,26 @@ require_once("select.php")
   <!-- ./wrapper -->
 
   <!-- jQuery -->
-  <script src="plugins/jquery/jquery.min.js"></script>
+  <script src="../../../plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap 4 -->
-  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- DataTables  & Plugins -->
-  <script src="plugins/datatables/jquery.dataTables.min.js"></script>
-  <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-  <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-  <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-  <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-  <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-  <script src="plugins/jszip/jszip.min.js"></script>
-  <script src="plugins/pdfmake/pdfmake.min.js"></script>
-  <script src="plugins/pdfmake/vfs_fonts.js"></script>
-  <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-  <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
-  <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+  <script src="../../../plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="../../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="../../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="../../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <script src="../../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="../../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+  <script src="../../../plugins/jszip/jszip.min.js"></script>
+  <script src="../../../plugins/pdfmake/pdfmake.min.js"></script>
+  <script src="../../../plugins/pdfmake/vfs_fonts.js"></script>
+  <script src="../../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+  <script src="../../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+  <script src="../../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
   <!-- AdminLTE App -->
-  <script src="dist/js/adminlte.min.js"></script>
+  <script src="../../../dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
-  <script src="dist/js/demo.js"></script>
+  <script src="../../../dist/js/demo.js"></script>
   <!-- Page specific script -->
   <script>
     $(function() {
