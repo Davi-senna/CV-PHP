@@ -6,21 +6,21 @@
             <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
-                    Usuário
+                    Curriculo:
                     <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="usuario_form.php" class="nav-link">
+                    <a href="academico.php" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>usuario_form</p>
+                        <p>Histórico acadêmico</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="usuario.php" class="nav-link">
+                    <a href="portfolio.php" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>admin usuario</p>
+                        <p>Portfólio</p>
                     </a>
                 </li>
 
@@ -28,7 +28,7 @@
 
     </ul>
     <!--Sobre-->
-
+    <!--
     <li class="nav-item">
         <a href="about.php" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
@@ -59,7 +59,7 @@
             <p>Histórico acadêmico</p>
         </a>
     </li>
-
+-->
     <!--Sobre-->
     </li>
     </ul>

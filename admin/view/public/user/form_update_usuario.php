@@ -1,6 +1,6 @@
 <?php
 
-extract($_GET);
+require_once("../public_config.php")
 
 ?>
 
@@ -196,36 +196,39 @@ extract($_GET);
                             <!-- form start -->
 
                             <?php
-
-                            require_once("select_id.php");
+                            extract($_GET);                        
+                            $objectController = new Controller_Usuario();
+                            $usuario = $objectController->selectUser($id);
 
                             ?>
 
-                            <form action="update.php" method="POST">
+                            <form action="../../view_usuario.php" method="GET">
                                 <input type="hidden" name="id" value="<?php echo ($id) ?>">
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="exampleInputName1">Digite o novo nome</label>
-                                        <input type="text" required name="name" value="<?php echo ($usuario["usu_nome"]); ?>" class="form-control" id="exampleInputName1" placeholder="Enter Name">
+                                        <input type="text" required name="nome" value="<?php echo ($usuario["nome"]); ?>" class="form-control" id="exampleInputName1" placeholder="Enter Name">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputUser1">Digite o novo nome do usuario</label>
-                                        <input type="text" required name="user" value="<?php echo ($usuario["usu_login"]); ?>" class="form-control" id="exampleInputUser1" placeholder="Enter user">
+                                        <input type="text" required name="login" value="<?php echo ($usuario["login"]); ?>" class="form-control" id="exampleInputUser1" placeholder="Enter user">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Digite o novo e-mail</label>
-                                        <input type="email" required value="<?php echo ($usuario["usu_email"]); ?>" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                        <input type="email" required value="<?php echo ($usuario["email"]); ?>" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Digite a nova senha</label>
-                                        <input type="password" required name="password" class="form-control" id="exampleInputPassword1" placeholder="Atualize sua senha">
+                                        <input type="senha" required name="senha" class="form-control" id="exampleInputPassword1" placeholder="Atualize sua senha">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Ativo</label>
-                                        <input type="checkbox" <?php if ($usuario["usu_status"] == 1) {
+                                        <input type="checkbox" <?php if ($usuario["status"] == 1) {
                                                                     echo "checked";
-                                                                } ?> name="situacao" id="exampleInputSituacao1">
+                                                                } ?> name="status" id="exampleInputSituacao1">
                                     </div>
+
+                                    <input type="hidden" name="stmt" required class="form-control" id="stmt" value="update">
 
                                 </div>
                                 <!-- /.card-body -->

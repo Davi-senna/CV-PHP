@@ -101,14 +101,14 @@ class Usuario{
     //Metodo de alimentação por select
     private function pullFeedClass(){
 
-        $user_data = $this->selectSpecific();
+        $user_data = $this->selectSpecific($this->getId());
 
         $this->feedClass($user_data);
     }
 
     //Select especifico
-    public function selectSpecific(){
-        $results = $this->conn->select("SELECT * FROM cv_usuario WHERE usu_id_usuario = $this->id");
+    public function selectSpecific($id){
+        $results = $this->conn->select("SELECT * FROM cv_usuario WHERE usu_id_usuario = $id");
         //var_dump($results);
         return $results[0];
     }
@@ -179,7 +179,7 @@ class Usuario{
 
     public function validUser($login,$senha){
 
-        $user_data = $this->conn->select("SELECT * FROM cv_usuario WHERE login = $login");
+        $user_data = $this->conn->select("SELECT * FROM cv_usuario WHERE login = '$login'");
 
         if(!empty($user_data)){
 

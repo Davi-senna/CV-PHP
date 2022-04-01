@@ -116,16 +116,18 @@ require_once("../public_config.php")
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="../insert.php" method="POST">
+              <form action="../../view_usuario.php" method="GET">
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Digite seu e-mail</label>
-                    <input type="email" name="email" required class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                    <input type="text" name="login" required class="form-control" id="login" placeholder="Digite o seu nome de usuário">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Digite sua senha</label>
-                    <input type="password" name="password" required class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <label for="exampleInputsenha1">Digite sua senha</label>
+                    <input type="senha" name="senha" required class="form-control" id="exampleInputsenha1" placeholder="Digite sua senha">
                   </div>
+
+                  <input type="hidden" name="stmt" required class="form-control" id="stmt" value="login">
 
                 </div>
                 <!-- /.card-body -->

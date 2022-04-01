@@ -14,6 +14,13 @@ class Controller_Usuario{
         return $results;
     }
 
+    public function selectUser($id){
+
+        $results = $this->instanceModel->selectSpecific($id);
+        return $results;
+
+    }
+
     public function comfirmUser($user_data){
         extract($user_data);
         $results = $this->instanceModel->validUser($login,$senha);
@@ -23,11 +30,25 @@ class Controller_Usuario{
     
     public function addUser($user_data){
         extract($user_data);
+
+        if(isset($status)){
+            $status = 1;
+        }else{
+            $status = 0;
+        }
+        
         $this->instanceModel->pushInsert($nome,$email,$senha,$login,$status);
     }
 
     public function updateUser($user_data){
         extract($user_data);
+
+        if(isset($status)){
+            $status = 1;
+        }else{
+            $status = 0;
+        }
+
         $this->instanceModel->pushUpdate($nome,$email,$senha,$login,$status);
     }
 

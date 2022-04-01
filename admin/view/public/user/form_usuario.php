@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="utf-8">
@@ -198,15 +198,15 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form action="../insert.php" method="POST">
+                            <form action="../../view_usuario.php" method="GET">
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="exampleInputName1">Digite o seu nome completo</label>
-                                        <input type="text" name="name" required class="form-control" id="exampleInputName1" placeholder="Enter Name">
+                                        <input type="text" name="nome" required class="form-control" id="exampleInputName1" placeholder="Enter Name">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputUser1">Digite o nome do usuario</label>
-                                        <input type="text" name="user" required class="form-control" id="exampleInputUser1" placeholder="Enter user">
+                                        <input type="text" name="login" required class="form-control" id="exampleInputUser1" placeholder="Enter user">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Digite seu e-mail</label>
@@ -214,12 +214,14 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Digite sua senha</label>
-                                        <input type="password" name="password" required class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                        <input type="password" name="senha" required class="form-control" id="exampleInputPassword1" placeholder="Password">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Ativo</label>
-                                        <input type="checkbox" name="situacao" id="exampleInputSituacao1">
+                                        <input type="checkbox" name="status" id="exampleInputSituacao1">
                                     </div>
+                                    
+                                    <input type="hidden" name="stmt" required class="form-control" id="stmt" value="insert">
 
                                 </div>
                                 <!-- /.card-body -->
