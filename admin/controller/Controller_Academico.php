@@ -33,6 +33,12 @@ class Controller_Academico{
         $this->objectAcademico->delete($id);
 
     }
+
+    public function addAcademico($user_data){
+        extract($user_data);
+        
+        $this->objectAcademico->pushInsert($nome_experiencia,$instituicao,$nivel,$data_inicio,$data_termino,$descricao);
+    }
 }
 
 

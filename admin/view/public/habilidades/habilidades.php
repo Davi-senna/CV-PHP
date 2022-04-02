@@ -1,7 +1,10 @@
 <?php
 
 extract($_GET);
-
+require_once("../public_config.php");
+require_once("../../../controller/Controller_Habilidade.php");
+require_once("../../../model/user/Habilidade.php");
+$_SESSION["id"] = 7;
 ?>
 
 
@@ -17,11 +20,11 @@ extract($_GET);
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../../../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
 
-    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href="../../../plugins/summernote/summernote-bs4.min.css">
 
 </head>
 
@@ -76,7 +79,7 @@ extract($_GET);
                         <a href="#" class="dropdown-item">
                             <!-- Message Start -->
                             <div class="media">
-                                <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                                <img src="../../../dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
                                 <div class="media-body">
                                     <h3 class="dropdown-item-title">
                                         Brad Diesel
@@ -108,7 +111,7 @@ extract($_GET);
                         <a href="#" class="dropdown-item">
                             <!-- Message Start -->
                             <div class="media">
-                                <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                                <img src="../../../dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
                                 <div class="media-body">
                                     <h3 class="dropdown-item-title">
                                         Nora Silvester
@@ -169,7 +172,7 @@ extract($_GET);
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
-                <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <img src="../../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">AdminLTE 3</span>
             </a>
 
@@ -178,7 +181,7 @@ extract($_GET);
                 <!-- Sidebar user (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="../../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">Alexander Pierce</a>
@@ -199,7 +202,7 @@ extract($_GET);
 
                 <!-- Sidebar Menu -->
                 <?php
-                include_once('pages/menu.php')
+                include_once('../../../pages/menu.php')
                 ?>
                 <!-- /.sidebar-menu -->
             </div>
@@ -226,7 +229,7 @@ extract($_GET);
                                 <!-- form start -->
 
 
-                                <form action="habilidades_insert.php" method="GET">
+                                <form action="../../view_habilidade.php" method="GET">
                                     <div class="card-body">
 
 
@@ -242,6 +245,9 @@ extract($_GET);
                                             <label for="customRange1">Nível da habilidade</label>
                                             <input type="range" name="nivel_habilidade" class="custom-range" id="customRange">
                                         </div>
+
+                                        <input type="hidden" name="stmt" required class="form-control" id="stmt" value="insert">
+                                        
                                         <button type="submit" class="col-2 btn btn-block btn-primary">Adicionar</button>
                                         <div class="form-group">
 
@@ -281,31 +287,33 @@ extract($_GET);
                             <div class="container ">
                                 <div class="h4 text-center mb-4 title">Habilidades</div>
                                 <?php
-                                    require_once("habilidades_select.php");
 
-                                    for($i=0;$i!=count($results);$i++){
-                                        
-                                    
+                                $objectController = new Controller_Habilidade($_SESSION["id"]);
+
+                                $results = $objectController->selectAll();
+                                for ($i = 0; $i != count($results); $i++) {
+
+
                                 ?>
-                                <div class="card" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="progress-container progress-primary"><span class="progress-badge"><?php echo $results[$i]["nome_habilidade"];?></span>
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10" data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $results[$i]["nivel_habilidade"]?>%;"></div>
+                                    <div class="card" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="progress-container progress-primary"><span class="progress-badge"><?php echo $results[$i]["nome_habilidade"]; ?></span>
+                                                        <div class="progress">
+                                                            <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10" data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $results[$i]["nivel_habilidade"] ?>%;"></div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div style="width:50%; display: flex; justify-content:flex-end; align-items:center">
+                                                <div style="width:50%; display: flex; justify-content:flex-end; align-items:center">
 
 
-                                            <a href="habilidades_delete.php?id=<?php echo ($results[$i]["id"]);?>">Deletar</a>
+                                                <a href="../../view_habilidade.php?id=<?php echo ($results[$i]["id"]); ?>&&stmt=delete">Deletar</a>
 
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                                 <?php
                                 }
                                 ?>
@@ -344,15 +352,15 @@ extract($_GET);
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="../../../plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- bs-custom-file-input -->
-    <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="../../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="dist/js/adminlte.min.js"></script>
+    <script src="../../../dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="dist/js/demo.js"></script>
+    <script src="../../../dist/js/demo.js"></script>
     <!-- Page specific script -->
 
 </body>

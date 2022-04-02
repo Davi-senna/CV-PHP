@@ -1,7 +1,5 @@
 <?php
 
-require_once("../Sql.php");
-
 class Habilidade{
 
     private $id;
@@ -44,21 +42,23 @@ class Habilidade{
         $this->nivel_habilidade = $value;
     }
 
-    public function selectAllByUserId($id){
-        $results = $this->conn->select("SELECT * FROM habilidades WHERE id_usuario = $id");
+    public function selectAllByUserId(){
+        $results = $this->conn->select("SELECT * FROM habilidades WHERE id_usuario = $this->id_usuario");
         return $results;
     }   
 
-    public function __construct($id_usuario,$id){
-        $this->conn = new Sql();
-        
-        $results = $this->conn->select("SELECT * FROM habilidades WHERE id_usuario = $id_usuario  AND id = $id");
+    //Select especifico
+    public function selectSpecific($id){
+        $results = $this->conn->select("SELECT * FROM habilidades WHERE id_usuario = $this->id_usuario  AND id = $id");
         //var_dump($results);
-        if(count($results) != 0){
-        $user_data = $results[0];
+        return $results[0];
+    }
+
+    public function feedClass($user_data){
+        
+        if(count($user_data) != 0){
 
         $this->setId($user_data["id"]);
-        $this->setId_usuario($user_data["id_usuario"]);
         $this->setNome_habilidade($user_data["nome_habilidade"]);
         $this->setNivel_habilidade($user_data["nivel_habilidade"]);
         
@@ -67,6 +67,81 @@ class Habilidade{
         }
     
     }
+
+    public function __construct($id_usuario){
+        $this->conn = new Sql();
+        $this->setId_usuario($id_usuario);
+    }
+
+    //Metodo de alimentação por valores para metodos como insert ou update
+    private function pushFeedClass($nome_habilidade,$nivel_habilidade){
+        if($this->getId() == null){
+            $id = "Em processo de criação";
+        }else{
+            $id = $this->getId();
+        }
+        $user_data = array(
+            "nome_habilidade" => $nome_habilidade,
+            "nivel_habilidade" => $nivel_habilidade,
+            "id" => $id,
+        );
+
+        $this->feedClass($user_data);
+    }
+
+    //Metodo de alimentação por select
+    public function pullFeedClass($id){
+
+        $user_data = $this->selectSpecific($id);
+
+        $this->feedClass($user_data);
+    }
+
+    public function pushInsert($nome_habilidade,$nivel_habilidade){
+
+        $this->pushFeedClass($nome_habilidade,$nivel_habilidade);
+
+        $this->conn->execQuery("INSERT INTO habilidades(id_usuario,nome_habilidade,nivel_habilidade) 
+        Values (
+            :ID,
+            :NOME_HABILIDADE,
+            :NIVEL_HABILIDADE
+        )",
+        array(
+            ":ID" => $this->getId_usuario(),
+            ":NOME_HABILIDADE" => $this->getNome_habilidade(),
+            ":NIVEL_HABILIDADE" => $this->getNivel_habilidade()
+
+        ));
+    }
+
+    public function pushUpdate($nome_habilidade,$nivel_habilidade){
+
+        $this->pushFeedClass($nome_habilidade,$nivel_habilidade);
+
+        $this->conn->execQuery("UPDATE habilidades 
+            SET 
+                id_usuario = :ID,
+                nome_habilidade = :NOME_HABILIDADE,
+                nivel_habilidade = :NIVEL_HABILIDADE,
+
+            WHERE id = $this->id
+                ", array(
+                ":ID" => $this->getId_usuario(),
+                ":NOME_HABILIDADE" => $this->getNome_habilidade(),
+                ":NIVEL_HABILIDADE" => $this->getNivel_habilidade()
+
+                )
+        );
+    }
+
+    public function delete($id){
+
+        $this->conn->execQuery(" DELETE from cv.habilidades where id_usuario = $this->id_usuario and id = $id
+        ");
+
+
+}
 
 }
 

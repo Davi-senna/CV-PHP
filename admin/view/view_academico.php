@@ -4,7 +4,7 @@ require_once("view_config.php");
 require_once("../controller/Controller_Academico.php");
 require_once("../model/user/Academico.php");
 
-$_SERVER["id"] = 1;
+$_SESSION["id"] = 7;
 
 extract($_GET);
 
@@ -15,7 +15,7 @@ if (isset($stmt)) {
         case 'delete':
 
             try {
-                $objectController = new Controller_Academico($_SERVER["id"]);
+                $objectController = new Controller_Academico($_SESSION["id"]);
                 $objectController->deleteAcademico($id);
                 header("Location:public/academico/academico.php?success=Experiência deletada com sucesso");
             } catch (\Throwable $th) {
@@ -23,31 +23,21 @@ if (isset($stmt)) {
             }
 
             break;
-/*
+
         case 'insert':
 
             try {
-                $objectController = new Controller_Academico();
-                $objectController->addacademico($_GET);
-                header("Location:public/academico/academico.php?success=Usuário cadastrado com sucesso");
+                $objectController = new Controller_Academico($_SESSION["id"]);
+                $objectController->addAcademico($_GET);
+                header("Location:public/academico/academico.php?success=Experiência cadastrada com sucesso");
             } catch (\Throwable $th) {
-                header("Location:public/academico/academico.php?error=Não foi possivel cadastrar esse usuario");
+                header("Location:public/academico/academico.php?error=Não foi possivel cadastrar essa experiência");
             }
 
             break;
-
-        case 'update':
-
-            try {
-                $objectController = new Controller_Academico($id);
-                $objectController->updateacademico($_GET);
-                header("Location:public/academico/academico.php?success=Usuário atualizado com sucesso");
-            } catch (\Throwable $th) {
-                header("Location:public/academico/academico.php?error=Não foi possivel atualizar esse usuario");
-            }
-
+        default:
+            header("Location:public/academico/academico.php?error=Comando invalido");
             break;
-*/
     }
 } else {
     header("Location:public/academico/academico.php?error=Comando invalido");

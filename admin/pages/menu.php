@@ -12,15 +12,21 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="academico.php" class="nav-link">
+                    <a href="../academico/academico.php" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Histórico acadêmico</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="portfolio.php" class="nav-link">
+                    <a href="../portfolio/portfolio.php" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Portfólio</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../habilidades/habilidades.php" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Habilidades</p>
                     </a>
                 </li>
 

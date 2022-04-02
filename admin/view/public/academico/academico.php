@@ -4,8 +4,9 @@ extract($_GET);
 require_once("../public_config.php");
 require_once("../../../controller/Controller_Academico.php");
 require_once("../../../model/user/Academico.php");
-
+$_SESSION["id"] = 7;
 ?>
+
 
 
 <!DOCTYPE html>
@@ -14,7 +15,7 @@ require_once("../../../model/user/Academico.php");
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>form para o usuario</title>
+    <title>form academico</title>
 
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="../../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
@@ -200,7 +201,7 @@ require_once("../../../model/user/Academico.php");
                     </div>
                 </div>
 
-                
+
 
                 <!-- Sidebar Menu -->
                 <?php
@@ -230,8 +231,8 @@ require_once("../../../model/user/Academico.php");
                                 <!-- /.card-header -->
                                 <!-- form start -->
 
-                               
-                                <form action="../view_academico.php" method="POST">
+
+                                <form action="../../view_academico.php" method="GET">
                                     <div class="card-body">
 
 
@@ -239,29 +240,31 @@ require_once("../../../model/user/Academico.php");
                                         <div class="card-body">
 
                                             <div class="form-group">
-                                                <label for="inputIdade">Nome da experiencia</label>
+                                                <label for="nome_experiencia">Nome da experiencia</label>
                                                 <input type="text" class="form-control" name="nome_experiencia" id="nome_experiencia">
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="inputEmail">Instituição de ensino</label>
+                                                <label for="instituicao">Instituição de ensino</label>
                                                 <input type="text" class="form-control" name="instituicao" id="instituicao">
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputEmail">Nivel de ensino</label>
+                                                <label for="nivel">Nivel de ensino</label>
                                                 <input type="text" class="form-control" name="nivel" id="nivel">
                                             </div>
                                             <div class="form-group">
-                                                <label>Ano de inicio:</label>
+                                                <label for="data_inicio">Ano de inicio:</label>
                                                 <div class="input-group date col-4" id="reservationdate" data-target-input="nearest">
                                                     <input name="data_inicio" id="data_inicio" type="text" class="form-control " />
 
                                                 </div>
                                             </div>
 
+                                            <input type="hidden" name="stmt" required class="form-control" id="stmt" value="insert">
+
 
                                             <div class="form-group">
-                                                <label>Ano de término:</label>
+                                                <label for="data_termino">Ano de término:</label>
                                                 <div class="input-group date col-4" id="reservationdate" data-target-input="nearest">
                                                     <input name="data_termino" id="data_termino" class="form-control " type="text" name="data-termino" id="data-termino">
                                                 </div>
@@ -309,7 +312,9 @@ require_once("../../../model/user/Academico.php");
                                                 <div class="container ">
                                                     <div class="h4 text-center mb-4 title">Experiências</div>
                                                     <?php
-                                                    $objectController = new Controller_Academico(1);
+
+                                                    $objectController = new Controller_Academico($_SESSION["id"]);
+
                                                     $results = $objectController->selectAll();
 
                                                     for ($i = 0; $i != count($results); $i++) {

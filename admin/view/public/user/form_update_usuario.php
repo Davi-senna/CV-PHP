@@ -1,6 +1,8 @@
 <?php
 
-require_once("../public_config.php")
+require_once("../public_config.php");
+require_once("../../../controller/Controller_Usuario.php");
+require_once("../../../model/user/Usuario.php");
 
 ?>
 
