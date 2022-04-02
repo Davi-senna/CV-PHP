@@ -1,8 +1,12 @@
 <?php
 
 extract($_GET);
-
+require_once("../public_config.php");
+require_once("../../../controller/Controller_Experiencia.php");
+require_once("../../../model/user/Experiencia.php");
+$_SESSION["id"] = 7;
 ?>
+
 
 
 <!DOCTYPE html>
@@ -11,24 +15,24 @@ extract($_GET);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>form para o usuario</title>
+    <title>form academico</title>
 
     <!-- iCheck for checkboxes and radio inputs -->
-    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="../../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Bootstrap Color Picker -->
-    <link rel="stylesheet" href="plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+    <link rel="stylesheet" href="../../../plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
     <!-- daterange picker -->
-    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="../../../plugins/daterangepicker/daterangepicker.css">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../../../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
 
-    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href="../../../plugins/summernote/summernote-bs4.min.css">
 
-    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css
+    <link rel="stylesheet" href="../../../plugins/daterangepicker/daterangepicker.css
     ">
 
 
@@ -181,7 +185,7 @@ extract($_GET);
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
-                <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <img src="../../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">AdminLTE 3</span>
             </a>
 
@@ -190,28 +194,18 @@ extract($_GET);
                 <!-- Sidebar user (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="../../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">Alexander Pierce</a>
                     </div>
                 </div>
 
-                <!-- SidebarSearch Form -->
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+
 
                 <!-- Sidebar Menu -->
                 <?php
-                include_once('pages/menu.php')
+                require_once('../../../pages/menu.php')
                 ?>
                 <!-- /.sidebar-menu -->
             </div>
@@ -227,23 +221,17 @@ extract($_GET);
                 <div class="container-fluid">
                     <div class="row">
 
-                        <!-- left column -->
-                        <div class="col-md-12">
+                    <div class="col-md-12">
                             <!-- general form elements -->
                             <div class="card card-primary">
-                                <div class="card-header">
+                                <div class= "card-header">
                                     <h3 class="card-title">Informações do usuário</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
 
-                                <?php
 
-                                require_once("select_about_id.php");
-
-                                ?>
-
-                                <form action="experiencia_insert.php" method="POST">
+                                <form action="../../view_experiencia.php" method="GET">
                                     <div class="card-body">
 
 
@@ -252,12 +240,12 @@ extract($_GET);
 
                                             <div class="form-group">
                                                 <label for="inputIdade">Nome da profissão</label>
-                                                <input type="text" class="form-control" name="nome_profissao" id="nome_profissao">
+                                                <input type="text" class="form-control" name="profissao" id="profissao">
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="inputEmail">Nome da area de atuação</label>
-                                                <input type="text" class="form-control" name="nome_area" id="nome_area">
+                                                <input type="text" class="form-control" name="area" id="area">
                                             </div>
                                             <div class="form-group">
                                                 <label>Data de inicio:</label>
@@ -265,6 +253,8 @@ extract($_GET);
                                                     <input name="data_inicio" id="data_inicio" type="text" class="form-control " />
 
                                                 </div>
+
+                                                <input type="hidden" name="stmt" required class="form-control" id="stmt" value="insert">
                                             </div>
 
 
@@ -317,7 +307,10 @@ extract($_GET);
                                                 <div class="container ">
                                                     <div class="h4 text-center mb-4 title">Experiências</div>
                                                     <?php
-                                                    require_once("experiencia_select.php");
+                                                    $objectController = new Controller_Experiencia($_SESSION["id"]);
+
+                                                    $results = $objectController->selectAll();
+
 
                                                     for ($i = 0; $i != count($results); $i++) {
 
@@ -334,7 +327,7 @@ extract($_GET);
                                                                     <div style="width:50%; display: flex; justify-content:flex-end; align-items:center">
 
 
-                                                                        <a href="experiencia_delete.php?id=<?php echo ($results[$i]["id"]); ?>">Deletar</a>
+                                                                        <a href="../../view_experiencia.php?id=<?php echo ($results[$i]["id"]); ?>&& stmt=delete">Deletar</a>
 
                                                                     </div>
                                                                 </div>
@@ -355,8 +348,8 @@ extract($_GET);
                                 <!-- /.card -->
                             </div>
                             <!--/.col (right) -->
-                        </div>
-                        <!-- /.row -->
+                        </div>    
+
                     </div><!-- /.container-fluid -->
                 </div>
                 <!-- /.card -->
@@ -386,21 +379,21 @@ extract($_GET);
 
 
     <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="../../../plugins/jquery/jquery.min.js"></script>
 
-    <script src="plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="../../../plugins/daterangepicker/daterangepicker.js"></script>
 
     <!-- Bootstrap 4 -->
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- bs-custom-file-input -->
-    <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="../../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="dist/js/adminlte.min.js"></script>
+    <script src="../../../dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="dist/js/demo.js"></script>
+    <script src="../../../dist/js/demo.js"></script>
     <!-- Page specific script -->
 
-    <script src="plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="../../../plugins/summernote/summernote-bs4.min.js"></script>
 
 
 
