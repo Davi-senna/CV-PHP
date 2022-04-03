@@ -1,7 +1,5 @@
 <?php
 
-require_once("../Sql.php");
-
 class Portfolio{
 
     private $id;
@@ -53,21 +51,22 @@ class Portfolio{
         $this->link = $value;
     }
 
-    public function selectAllByUserId($id){
-        $results = $this->conn->select("SELECT * FROM imagens_portfolio WHERE id_usuario = $id");
+    public function selectAllByUserId(){
+        $results = $this->conn->select("SELECT * FROM imagens_portfolio WHERE id_usuario = $this->id_usuario");
         return $results;
-    }   
+    }
 
-    public function __construct($id_usuario,$id){
-        $this->conn = new Sql();
-        
-        $results = $this->conn->select("SELECT * FROM imagens_portfolio WHERE id_usuario = $id_usuario  AND id = $id");
+    public function selectSpecific($id){
+        $results = $this->conn->select("SELECT * FROM imagens_portfolio WHERE id_usuario = $this->id_usuario  AND id = $id");
         //var_dump($results);
-        if(count($results) != 0){
-        $user_data = $results[0];
+        return $results[0];
+    }
+
+    public function feedClass($user_data){
+
+        if (count($user_data) != 0) {
 
         $this->setId($user_data["id"]);
-        $this->setId_usuario($user_data["id_usuario"]);
         $this->setNome($user_data["nome"]);
         $this->setImage_source($user_data["image_source"]);
         $this->setLink($user_data["link"]);
@@ -78,13 +77,81 @@ class Portfolio{
     
     }
 
-}
+    //Metodo de alimentação por valores para metodos como insert ou update
+    private function pushFeedClass($nome, $image_source, $link){
+        if ($this->getId() == null) {
+            $id = "Em processo de criação";
+        } else {
+            $id = $this->getId();
+        }
+        $user_data = array(
+            "nome" => $nome,
+            "image_source" => $image_source,
+            "link" => $link,
+            "id" => $id
+        );
 
-/*
-try {
-    $teste = new Portfolio(1,11);
-    var_dump($teste->selectAllByUserId(1));
-} catch (\Throwable $th) {
-    echo "erro";
+        $this->feedClass($user_data);
+    }
+
+    //Metodo de alimentação por select
+    public function pullFeedClass($id){
+
+        $user_data = $this->selectSpecific($id);
+
+        $this->feedClass($user_data);
+    }
+
+    public function pushInsert($nome, $image_source, $link){
+
+        $this->pushFeedClass($nome, $image_source, $link);
+
+        $this->conn->execQuery("INSERT INTO imagens_portfolio(id_usuario,nome,image_source,link) 
+        Values (
+            :ID,
+            :NOME,
+            :IMAGE_SOURCE,
+            :LINK
+
+        )
+    ", array(
+        ":ID" => $this->getId_usuario(),
+        ":NOME" => $this->getNome(),
+        ":IMAGE_SOURCE" => $this->getImage_source(),
+        ":LINK" => $this->getLink()
+
+    ));
+    }
+
+    public function pushUpdate($nome, $image_source, $link){
+
+        $this->pushFeedClass($nome, $image_source, $link);
+
+        $this->conn->execQuery("UPDATE imagens_portfolio  
+            SET 
+                image_source = :IMAGE_SOURCE,
+                nome = :NOME,
+                link = :LINK
+
+            WHERE id = $this->id
+                ", array(
+                ":IMAGE_SOURCE" => $this->getImage_source(),
+                ":NOME" => $this->getNome(),
+                ":LINK" => $this->getLink()   
+            )
+        );
+    }
+
+    public function delete($id){
+
+        $this->conn->execQuery(" DELETE from cv.imagens_portfolio where id_usuario = $this->id_usuario and id = $id
+        ");
+
+    }
+
+    public function __construct($id_usuario){
+        $this->conn = new Sql();
+        $this->setId_usuario($id_usuario);
+    }
+
 }
-*/

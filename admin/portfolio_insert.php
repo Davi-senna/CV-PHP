@@ -7,8 +7,6 @@ $dir = "uploads/";
 $file = $_FILES["image"];
 $upload_file = $dir . md5(rand() .date("d-m-Y H:i:s")). $file["name"];
 
-try{
-
 $sql = new Sql();
 $sql->execQuery("INSERT INTO imagens_portfolio(nome,image_source,link,id_usuario)
 VALUES(
@@ -18,7 +16,6 @@ VALUES(
     1
 )");
 
-var_dump($upload_file);
 
 if(!is_dir($dir)){
     mkdir($dir);
@@ -29,9 +26,7 @@ echo "foi";
 }
 
 header('Location: portfolio.php?sucess=Usuario atualizado com sucesso');
-}catch(Exception $e){
-    header("Location: portfolio.php?Error=Imagem não inserida");
-}
+
 
 
 ?>

@@ -1,7 +1,6 @@
 <?php
 
-class Experiencia
-{
+class Experiencia{
 
     private $id;
     private $id_usuario;
@@ -13,94 +12,77 @@ class Experiencia
     private $conn;
 
 
-    public function getId()
-    {
+    public function getId(){
         return $this->id;
     }
 
-    public function setId($value)
-    {
+    public function setId($value){
         $this->id = $value;
     }
 
-    public function getId_usuario()
-    {
+    public function getId_usuario(){
         return $this->id_usuario;
     }
 
-    public function setId_usuario($value)
-    {
+    public function setId_usuario($value){
         $this->id_usuario = $value;
     }
 
-    public function getArea()
-    {
+    public function getArea(){
         return $this->area;
     }
 
-    public function setArea($value)
-    {
+    public function setArea($value){
         $this->area = $value;
     }
 
 
-    public function getData_inicio()
-    {
+    public function getData_inicio(){
         return $this->data_inicio;
     }
 
-    public function setData_inicio($value)
-    {
+    public function setData_inicio($value){
         $this->data_inicio = $value;
     }
 
-    public function getData_termino()
-    {
+    public function getData_termino(){
         return $this->data_termino;
     }
 
-    public function setData_termino($value)
-    {
+    public function setData_termino($value){
         $this->data_termino = $value;
     }
 
-    public function getDescricao()
-    {
+    public function getDescricao(){
         return $this->descricao;
     }
 
-    public function setDescricao($value)
-    {
+    public function setDescricao($value){
         $this->descricao = $value;
     }
 
-    public function getProfissao()
-    {
+    public function getProfissao(){
         return $this->profissao;
     }
 
-    public function setProfissao($value)
-    {
+    public function setProfissao($value){
         $this->profissao = $value;
     }
 
-    public function selectAllByUserId()
-    {
+    public function selectAllByUserId(){
         $results = $this->conn->select("SELECT * FROM experiencia WHERE id_usuario = $this->id_usuario");
         return $results;
     }
 
     //Select especifico
-    public function selectSpecific($id)
-    {
+    public function selectSpecific($id){
         $results = $this->conn->select("SELECT * FROM academico WHERE id_usuario = $this->id_usuario  AND id = $id");
         //var_dump($results);
         return $results[0];
     }
 
     //Metodo para alimentar a classe
-    public function feedClass($user_data)
-    {
+    public function feedClass($user_data){
 
         if (count($user_data) != 0) {
 
@@ -116,8 +98,7 @@ class Experiencia
     }
 
     //Metodo de alimentação por valores para metodos como insert ou update
-    private function pushFeedClass($area, $profissao, $data_inicio, $data_termino, $descricao)
-    {
+    private function pushFeedClass($area, $profissao, $data_inicio, $data_termino, $descricao){
         if ($this->getId() == null) {
             $id = "Em processo de criação";
         } else {
@@ -136,8 +117,7 @@ class Experiencia
     }
 
     //Metodo de alimentação por select
-    public function pullFeedClass($id)
-    {
+    public function pullFeedClass($id){
 
         $user_data = $this->selectSpecific($id);
 
@@ -199,11 +179,9 @@ class Experiencia
         $this->conn->execQuery(" DELETE from cv.experiencia where id_usuario = $this->id_usuario and id = $id
         ");
 
+    }
 
-}
-
-    public function __construct($id_usuario)
-    {
+    public function __construct($id_usuario){
         $this->conn = new Sql();
         $this->setId_usuario($id_usuario);
     }

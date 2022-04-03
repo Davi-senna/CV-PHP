@@ -1,8 +1,12 @@
 <?php
 
 extract($_GET);
-
+require_once("../public_config.php");
+require_once("../../../controller/Controller_Portfolio.php");
+require_once("../../../model/user/Portfolio.php");
+$_SESSION["id"] = 7;
 ?>
+
 
 
 <!DOCTYPE html>
@@ -11,14 +15,28 @@ extract($_GET);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>form para o usuario</title>
+    <title>form academico</title>
 
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="../../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="../../../plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="../../../plugins/daterangepicker/daterangepicker.css">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../../../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
+
+    <link rel="stylesheet" href="../../../plugins/summernote/summernote-bs4.min.css">
+
+    <link rel="stylesheet" href="../../../plugins/daterangepicker/daterangepicker.css
+    ">
+
+
+    <!-- date-range-picker -->
 
 
 </head>
@@ -167,7 +185,7 @@ extract($_GET);
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
-                <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <img src="../../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">AdminLTE 3</span>
             </a>
 
@@ -176,28 +194,18 @@ extract($_GET);
                 <!-- Sidebar user (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="../../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">Alexander Pierce</a>
                     </div>
                 </div>
 
-                <!-- SidebarSearch Form -->
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+
 
                 <!-- Sidebar Menu -->
                 <?php
-                include_once('pages/menu.php')
+                require_once('../../../pages/menu.php')
                 ?>
                 <!-- /.sidebar-menu -->
             </div>
@@ -213,7 +221,6 @@ extract($_GET);
                 <div class="container-fluid">
                     <div class="row">
 
-                        <!-- left column -->
                         <div class="col-md-12">
                             <!-- general form elements -->
                             <div class="card card-primary">
@@ -223,28 +230,26 @@ extract($_GET);
                                 <!-- /.card-header -->
                                 <!-- form start -->
 
-                                <?php
 
-                                require_once("select_about_id.php");
 
-                                ?>
-
-                                <form action="portfolio_insert.php" method="POST" enctype="multipart/form-data">
+                                <form action="../../view_portfolio.php" method="POST" enctype="multipart/form-data">
                                     <div class="card-body">
 
                                         <div class="form-group">
                                             <label for="nome_projeto">Nome do projeto</label>
-                                            <input class="form-control col-4" type="text" name="nome_projeto" id="nome_projeto">   
+                                            <input class="form-control col-4" type="text" name="nome" id="nome">
                                         </div>
                                         <div class="form-group">
-                                            <label for="nome_projeto">Link do projeto</label>
-                                            <input class="form-control col-4" type="text" name="link_projeto" id="link_projeto">   
+                                            <label for="nome">Link do projeto</label>
+                                            <input class="form-control col-4" type="text" name="link" id="link">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="image">Adicionar capa</label><br>
-                                            <input type="file" name="image" id="image">   
+                                            <input type="file" name="image" id="image">
                                         </div>
+
+                                        <input type="hidden" name="stmt" id="stmt" value="insert">
                                     </div>
                                     <!-- /.card-body -->
 
@@ -264,69 +269,73 @@ extract($_GET);
                 </div>
                 <!-- /.row -->
                 <div class="container-fluid">
-        <div class="row">
+                    <div class="row">
 
-            <!-- left column -->
-            <div class="col-md-12">
-                <!-- general form elements -->
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">Atuais projetos</h3>
-                    </div>
-                    <!-- /.card-header -->
+                        <!-- left column -->
+                        <div class="col-md-12">
+                            <!-- general form elements -->
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Atuais projetos</h3>
+                                </div>
+                                <!-- /.card-header -->
 
-                    <div class="card-body">
+                                <div class="card-body">
 
 
-                        <div class="card-body">
-                            <div class="container ">
-                                <div class="h4 text-center mb-4 title">Projetos</div>
-                                <?php
-                                    require_once("portfolio_select.php");
-
-                                    for($i=0;$i!=count($results);$i++){
-                                        
-                                    
-                                ?>
-                                <div class="card" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
                                     <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="progress-container progress-primary"><span class="progress-badge"><?php echo $results[$i]["nome"];?></span>
-                                                    
+                                        <div class="container ">
+                                            <div class="h4 text-center mb-4 title">Projetos</div>
+                                            <?php
+
+                                            $objectController = new Controller_Portfolio($_SESSION["id"]);
+
+                                            $results = $objectController->selectAll();
+
+                                            for ($i = 0; $i != count($results); $i++) {
+
+
+                                            ?>
+                                                <div class="card" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="progress-container progress-primary"><span class="progress-badge"><?php echo $results[$i]["nome"]; ?></span>
+
+                                                                </div>
+                                                            </div>
+                                                            <div style="width:50%; display: flex; justify-content:flex-end; align-items:center">
+
+
+                                                            <a href="../../view_portfolio.php?id=<?php echo ($results[$i]["id"]); ?>&&stmt=delete">Deletar</a>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div style="width:50%; display: flex; justify-content:flex-end; align-items:center">
-
-
-                                            <a href="portfolio_delete.php?id=<?php echo ($results[$i]["id"]);?>">Deletar</a>
-
-                                            </div>
+                                            <?php
+                                            }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
-                                <?php
-                                }
-                                ?>
+                                <!-- /.card -->
+                                </form>
                             </div>
+                            <!-- /.card -->
+
                         </div>
-                    </div>
-                    <!-- /.card -->
-                    </form>
+
+                    </div><!-- /.container-fluid -->
                 </div>
                 <!-- /.card -->
-
-            </div>
-            <!-- /.card -->
         </div>
         <!--/.col (right) -->
     </div>
     <!-- /.row -->
     </div><!-- /.container-fluid -->
-        </div><!-- /.container-fluid -->
-        
-        </section>
-        <!-- /.content -->
+    </section>
+    <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
@@ -344,31 +353,95 @@ extract($_GET);
     </div>
     <!-- ./wrapper -->
 
+
     <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="../../../plugins/jquery/jquery.min.js"></script>
+
+    <script src="../../../plugins/daterangepicker/daterangepicker.js"></script>
+
     <!-- Bootstrap 4 -->
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- bs-custom-file-input -->
-    <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="../../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="dist/js/adminlte.min.js"></script>
+    <script src="../../../dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="dist/js/demo.js"></script>
+    <script src="../../../dist/js/demo.js"></script>
     <!-- Page specific script -->
 
-    <script src="plugins/summernote/summernote-bs4.min.js"></script>
-    <script>
-  $(function () {
-    // Summernote
-    $('#summernote').summernote()
+    <script src="../../../plugins/summernote/summernote-bs4.min.js"></script>
 
-    // CodeMirror
-    CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-      mode: "htmlmixed",
-      theme: "monokai"
-    });
-  })
-</script>
+
+
+
+    <!-- InputMask -->
+    <script src="plugins/moment/moment.min.js"></script>
+    <script src="plugins/inputmask/jquery.inputmask.min.js"></script>
+    <!-- date-range-picker -->
+    <script src="plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap color picker -->
+    <script src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+
+
+
+    <script>
+        $(function() {
+            // Summernote
+            $('#summernote').summernote()
+
+            // CodeMirror
+            CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+                mode: "htmlmixed",
+                theme: "monokai"
+            });
+        })
+
+        $('#reservationdate').datetimepicker({
+            format: 'L'
+        });
+
+        //Date picker
+        $('#reservationdate').datetimepicker({
+            format: 'L'
+        });
+
+        //Date and time picker
+        $('#reservationdatetime').datetimepicker({
+            icons: {
+                time: 'far fa-clock'
+            }
+        });
+
+        //Date range picker
+        $('#reservation').daterangepicker()
+        //Date range picker with time picker
+        $('#reservationtime').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'MM/DD/YYYY hh:mm A'
+            }
+        })
+        //Date range as a button
+        $('#daterange-btn').daterangepicker({
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment()
+            },
+            function(start, end) {
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+            }
+        )
+    </script>
 </body>
 
 </html>
