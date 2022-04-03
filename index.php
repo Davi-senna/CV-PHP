@@ -1,5 +1,14 @@
+<?php
+
+session_start();
+$_SESSION["id"] = 7;
+require_once("admin/model/Sql.php");
+
+
+?>
+
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="pt-br">
 
 <head>
   <meta charset="UTF-8">
@@ -75,9 +84,11 @@
                 <div class="card-body">
                   <div class="h4 mt-0 title">Sobre mim</div>
                   <?php
-                  require_once("model/Sql.php");
-                  $stmt = new Sql();
-                  $results = $stmt->select("SELECT * FROM cv.sobre WHERE id = 1");
+
+                  require_once("admin/model/user/Sobre.php");
+                  require_once("admin/controller/Controller_Sobre.php");
+                  $objectController_Sobre = new Controller_Sobre($_SESSION["id"]);
+                  $results = $objectController_Sobre->selectAll();
                   $about = $results[0];
                   extract($about);
                   echo $conteudo;
@@ -121,7 +132,11 @@
 
                 <?php
 
-                $results = $stmt->select("SELECT * FROM cv.habilidades WHERE id_usuario = 1");
+                require_once("admin/model/user/Habilidade.php");
+                require_once("admin/controller/Controller_Habilidade.php");
+                $objectController_Habilidade = new Controller_Habilidade($_SESSION["id"]);
+                $results = $objectController_Habilidade->selectAll();
+
                 for ($i = 0; $i != count($results); $i++) {
                 ?>
 
@@ -156,12 +171,15 @@
                 <div class="row">
                   <?php
 
-                  $results = $stmt->select("SELECT * FROM cv.imagens_portfolio WHERE id_usuario = 1");
+                  require_once("admin/model/user/Portfolio.php");
+                  require_once("admin/controller/Controller_Portfolio.php");
+                  $objectController_Portfolio = new Controller_Portfolio($_SESSION["id"]);
+                  $results = $objectController_Portfolio->selectAll();
                   for ($i = 0; $i != count($results); $i++) {
                   ?>
                     <div class="col-md-6">
                       <div class=" cc-porfolio-image img-raised" data-aos="fade-up" data-aos-anchor-placement="top-bottom"><a href="<?php echo $results[$i]["link"] ?>">
-                          <figure class="cc-effect"><img src="admin/<?php echo $results[$i]["image_source"]; ?>" alt="Image" />
+                          <figure class="cc-effect"><img src="admin/view/<?php echo $results[$i]["image_source"]; ?>" alt="Image" />
                             <figcaption>
                               <div class="h4"><?php echo $results[$i]["nome"]; ?></div>
                             </figcaption>
@@ -184,7 +202,11 @@
           <div class="h4 text-center mb-4 title">Experiência de trabalho</div>
           <?php
 
-          $results = $stmt->select("SELECT * FROM cv.experiencia WHERE id_usuario = 1");
+          require_once("admin/model/user/Experiencia.php");
+          require_once("admin/controller/Controller_Experiencia.php");
+          $objectController_Experiencia = new Controller_Experiencia($_SESSION["id"]);
+          $results = $objectController_Experiencia->selectAll();
+
           for ($i = 0; $i != count($results); $i++) {
 
           ?>
@@ -193,7 +215,7 @@
                 <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
                   <div class="card-body cc-experience-header">
                     <p><?php echo $results[$i]["data_inicio"] ?> - <?php echo $results[$i]["data_termino"] ?></p>
-                    <div class="h5"><?php echo $results[$i]["area"] ?></div> 
+                    <div class="h5"><?php echo $results[$i]["area"] ?></div>
                   </div>
                 </div>
                 <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
@@ -213,7 +235,10 @@
           <div class="h4 text-center mb-4 title">Histórico acadêmico</div>
           <?php
 
-          $results = $stmt->select("SELECT * FROM cv.academico WHERE id_usuario = 1");
+          require_once("admin/model/user/Academico.php");
+          require_once("admin/controller/Controller_Academico.php");
+          $objectController_Academico = new Controller_Academico($_SESSION["id"]);
+          $results = $objectController_Academico->selectAll();
           for ($i = 0; $i != count($results); $i++) {
 
           ?>
