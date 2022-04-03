@@ -35,6 +35,12 @@
                         <p>Experiências de trabalho</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="../sobre/sobre.php" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Sobre</p>
+                    </a>
+                </li>
 
         </li>
 

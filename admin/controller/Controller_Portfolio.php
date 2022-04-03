@@ -1,24 +1,20 @@
 <?php
 
-class Controller_Portfolio
-{
+class Controller_Portfolio{
 
     private $objectPortfolio;
 
-    public function __construct($id_usuario)
-    {
+    public function __construct($id_usuario){
         $this->objectPortfolio = new Portfolio($id_usuario);
     }
 
-    public function selectAll()
-    {
+    public function selectAll(){
 
         return $this->objectPortfolio->selectAllByUserId();
     }
 
     //Método para gerar array com instancias dos valores existentes 
-    public function getInstances()
-    {
+    public function getInstances(){
         $results = $this->selectAll();
         $instances = array();
 
@@ -31,8 +27,7 @@ class Controller_Portfolio
         return $instances;
     }
 
-    public function deletePortfolio($id)
-    {
+    public function deletePortfolio($id){
         $file = $this->objectPortfolio->selectSpecific($id);
         $this->objectPortfolio->delete($id);
         $nameFile =  $file["image_source"];
@@ -41,8 +36,7 @@ class Controller_Portfolio
 
     }
 
-    public function addPortfolio($user_data, $image)
-    {
+    public function addPortfolio($user_data, $image){
         extract($user_data);
 
         $dir = "images/";

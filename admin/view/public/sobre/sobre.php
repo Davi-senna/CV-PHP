@@ -1,8 +1,12 @@
 <?php
 
 extract($_GET);
-
+require_once("../public_config.php");
+require_once("../../../controller/Controller_Sobre.php");
+require_once("../../../model/user/Sobre.php");
+$_SESSION["id"] = 7;
 ?>
+
 
 
 <!DOCTYPE html>
@@ -11,16 +15,29 @@ extract($_GET);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>form para o usuario</title>
+    <title>form academico</title>
 
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="../../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="../../../plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="../../../plugins/daterangepicker/daterangepicker.css">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../../../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
 
-    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href="../../../plugins/summernote/summernote-bs4.min.css">
+
+    <link rel="stylesheet" href="../../../plugins/daterangepicker/daterangepicker.css
+    ">
+
+
+    <!-- date-range-picker -->
+
 
 </head>
 
@@ -168,7 +185,7 @@ extract($_GET);
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
-                <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <img src="../../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">AdminLTE 3</span>
             </a>
 
@@ -177,28 +194,18 @@ extract($_GET);
                 <!-- Sidebar user (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="../../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">Alexander Pierce</a>
                     </div>
                 </div>
 
-                <!-- SidebarSearch Form -->
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+
 
                 <!-- Sidebar Menu -->
                 <?php
-                include_once('pages/menu.php')
+                require_once('../../../pages/menu.php')
                 ?>
                 <!-- /.sidebar-menu -->
             </div>
@@ -213,8 +220,6 @@ extract($_GET);
             <section class="content">
                 <div class="container-fluid">
                     <div class="row">
-
-                        <!-- left column -->
                         <div class="col-md-12">
                             <!-- general form elements -->
                             <div class="card card-primary">
@@ -223,64 +228,66 @@ extract($_GET);
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
-
                                 <?php
 
-                                require_once("select_about_id.php");
+                                $objectController = new Controller_Sobre($_SESSION["id"]);
+
+                                $results = $objectController->selectAll();
 
                                 ?>
 
-                                <form action="update_conteudo.php" method="POST">
+                                <form action="../../view_sobre.php" method="GET">
                                     <div class="card-body">
 
                                         <div class="form-group">
 
                                             <textarea name="conteudo" id="summernote">
-                                                <?php echo $conteudo ?>
+                                                <?php echo $results[0]["conteudo"] ?>
                                             </textarea>
                                         </div>
 
                                         <div class="card-body">
-                                        
+
                                             <div class="form-group">
                                                 <label for="inputIdade">Idade</label>
-                                                <input type="number" class="form-control" name="idade" id="inputIdade" value="<?php echo $idade ?>">
+                                                <input type="number" class="form-control" name="idade" id="inputIdade" value="<?php echo $results[0]["idade"] ?>">
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="inputEmail">E-mail</label>
-                                                <input type="email" class="form-control" name="email" id="inputEmail" value="<?php echo $email ?>">
+                                                <input type="email" class="form-control" name="email" id="inputEmail" value="<?php echo $results[0]["email"] ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="inputTelefone">Telefone</label>
-                                                <input type="text" class="form-control" name="telefone" id="inputTelefone" value="<?php echo $telefone ?>">
+                                                <input type="text" class="form-control" name="telefone" id="inputTelefone" value="<?php echo $results[0]["telefone"] ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="inputNumero">Numero da casa ou apartamento</label>
-                                                <input type="number" class="form-control" name="numeroCasa" id="inputNumero" value="<?php echo $numero ?>">
+                                                <input type="number" class="form-control" name="numero" id="inputNumero" value="<?php echo $results[0]["numero"] ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="inputRua">Rua</label>
-                                                <input type="text" class="form-control" name="rua" id="inputRua" value="<?php echo $rua ?>">
+                                                <input type="text" class="form-control" name="rua" id="inputRua" value="<?php echo $results[0]["rua"] ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="inputCidade">Cidade</label>
-                                                <input type="text" class="form-control" name="cidade" id="inputCidade" value="<?php echo $cidade ?>">
+                                                <input type="text" class="form-control" name="cidade" id="inputCidade" value="<?php echo $results[0]["cidade"] ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="inputEstado">Estado</label>
-                                                <input type="text" class="form-control" name="estado" id="inputEstado" value="<?php echo $estado ?>">
+                                                <input type="text" class="form-control" name="estado" id="inputEstado" value="<?php echo $results[0]["estado"] ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="inputPais">País</label>
-                                                <input type="text" class="form-control" name="pais" id="inputPais" value="<?php echo $pais ?>">
+                                                <input type="text" class="form-control" name="pais" id="inputPais" value="<?php echo $results[0]["pais"] ?>">
                                             </div>
-                                            
+                                            <input type="hidden" name="stmt" id="stmt" value="update">
+
                                         </div>
                                         <!-- /.card-body -->
 
                                         <div class="card-footer">
-                                            <button type="submit" class="btn btn-primary">Enviar</button>
+                                            <button type="submit" class="btn btn-primary">Atualizar</button>
                                         </div>
                                 </form>
                             </div>
@@ -293,9 +300,17 @@ extract($_GET);
                     </div>
                     <!-- /.card -->
                 </div>
-                <!--/.col (right) -->
         </div>
-        <!-- /.row -->
+        <!--/.col (right) -->
+    </div>
+
+    </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.card -->
+    </div>
+    <!--/.col (right) -->
+    </div>
+    <!-- /.row -->
     </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
@@ -316,19 +331,39 @@ extract($_GET);
     </div>
     <!-- ./wrapper -->
 
+
     <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="../../../plugins/jquery/jquery.min.js"></script>
+
+    <script src="../../../plugins/daterangepicker/daterangepicker.js"></script>
+
     <!-- Bootstrap 4 -->
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- bs-custom-file-input -->
-    <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="../../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="dist/js/adminlte.min.js"></script>
+    <script src="../../../dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="dist/js/demo.js"></script>
+    <script src="../../../dist/js/demo.js"></script>
     <!-- Page specific script -->
 
-    <script src="plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="../../../plugins/summernote/summernote-bs4.min.js"></script>
+
+
+
+
+    <!-- InputMask -->
+    <script src="plugins/moment/moment.min.js"></script>
+    <script src="plugins/inputmask/jquery.inputmask.min.js"></script>
+    <!-- date-range-picker -->
+    <script src="plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap color picker -->
+    <script src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+
+
+
     <script>
         $(function() {
             // Summernote
@@ -340,6 +375,50 @@ extract($_GET);
                 theme: "monokai"
             });
         })
+
+        $('#reservationdate').datetimepicker({
+            format: 'L'
+        });
+
+        //Date picker
+        $('#reservationdate').datetimepicker({
+            format: 'L'
+        });
+
+        //Date and time picker
+        $('#reservationdatetime').datetimepicker({
+            icons: {
+                time: 'far fa-clock'
+            }
+        });
+
+        //Date range picker
+        $('#reservation').daterangepicker()
+        //Date range picker with time picker
+        $('#reservationtime').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'MM/DD/YYYY hh:mm A'
+            }
+        })
+        //Date range as a button
+        $('#daterange-btn').daterangepicker({
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment()
+            },
+            function(start, end) {
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+            }
+        )
     </script>
 </body>
 

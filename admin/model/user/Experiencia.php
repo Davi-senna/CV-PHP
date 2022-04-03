@@ -76,7 +76,7 @@ class Experiencia{
 
     //Select especifico
     public function selectSpecific($id){
-        $results = $this->conn->select("SELECT * FROM academico WHERE id_usuario = $this->id_usuario  AND id = $id");
+        $results = $this->conn->select("SELECT * FROM experi WHERE id_usuario = $this->id_usuario  AND id = $id");
         //var_dump($results);
         return $results[0];
     }
