@@ -2,7 +2,7 @@
 
 session_start();
 $_SESSION["id"] = 7;
-require_once("admin/model/Sql.php");
+require_once("../../../model/Sql.php");
 
 
 ?>
@@ -33,34 +33,46 @@ require_once("admin/model/Sql.php");
 
 <body id="top">
 
-  <section id="cadastro-usu">
+<section id="cadastro-usu">
 
-    <form class="form_usu" id="form_login_usu" action="admin/view/view_usuario.php" method="POST">
+<form class="form_usu" id="form_cadastro_usu" action="../../view_usuario.php" method="GET">
 
-      <span>Fazer login</span>
-      <div id="container-login">
-        <div class="container-input-dados">
-          <input class="input-dados" type="text" required name="login" id="inputLogin">
-          <label class="label-animado" for="inputLogin">Login</label>
+    <span>Faça seu cadastro</span>
+
+    <div id="login">
+
+        <div class="container-input-dados ">
+            <input class="input-dados" type="text" required name="nome" id="nome">
+            <label class="label-animado" for="nome">Nome</label>
         </div>
 
         <div class="container-input-dados">
-          <input class="input-dados" type="password" required name="senha" id="senha">
-          <label class="label-animado" for="senha">Senha</label>
+            <input class="input-dados" type="text" required name="login" id="input-login">
+            <label class="label-animado" for="input-login">Login</label>
         </div>
 
-        <input type="hidden" name="valid" value="true">
-      </div>
-      <div class="container-button-dados">
+        <div class="container-input-dados">
+            <input class="input-dados" type="password" required name="senha" id="senha">
+            <label class="label-animado" for="senha">Senha</label>
+        </div>
+
+        <div class="container-input-dados">
+            <input class="input-dados" type="email" required name="email" id="email">
+            <label class="label-animado" for="email">E-mail</label>
+        </div>
+
+        <input type="hidden" name="stmt" required class="form-control" id="stmt" value="insert">
+
+        
+    </div>
+    <div class="container-button-dados">
         <button id="button-dados" type="submit">Entrar</button>
         <br><br>
-        <a href="admin/view/public/user/form_user.php">Não tenho conta</a>
+        <a href="../../../../index.php">Já tenho conta</a>
       </div>
 
-      <input type="hidden" name="stmt" required class="form-control" id="stmt" value="login">
-
-    </form>
-  </section>
+</form>
+</section>
 
   <script src="js/core/jquery.3.2.1.min.js?ver=1.1.0"></script>
   <script src="js/core/popper.min.js?ver=1.1.0"></script>
@@ -70,19 +82,23 @@ require_once("admin/model/Sql.php");
   <script src="scripts/main.js?ver=1.1.0"></script>
   <style>
     body {
-      background-image: url("images/fundo.png");
+      background-image: url("../../../../images/fundo.png");
     }
 
+    #login{
+      display: flex;
+      width: 40vw;
+    }
 
     #cadastro-usu {
       left: 15vw;
       border-radius: 0.5em;
-      margin: 25vh 0 0 5vw;
+      margin: 20vh 0 0 0vw;
     }
 
     .input-dados {
       outline: none;
-      width: max(300px,20vw);
+      width: max(200px,15vw);
       background-color: transparent;
       border: 0;
       border-bottom: 1px rgb(255, 255, 255) solid;
@@ -123,7 +139,7 @@ require_once("admin/model/Sql.php");
 
     .form_usu span {
       color: rgb(255, 255, 255);
-      margin: 0vh 0 10vh max(80px,5vw);
+      margin: 0vh 0 10vh max(80px,13vw);
       font-size: max(30px,2.7vw);
     }
 
@@ -131,7 +147,7 @@ require_once("admin/model/Sql.php");
 
     .container-input-dados {
       position: relative;
-      margin: 5vh 3vw 5vh 3vw;
+      margin: 5vh 0 5vh 3vw;
     }
 
     #pg-cadastro-fundo {
@@ -152,7 +168,7 @@ require_once("admin/model/Sql.php");
 
 
     .container-button-dados a {
-      margin-left: max(140px,10.5vw);
+      margin-left: max(140px,19.5vw);
       color: rgb(255, 255, 255) ;
       font-size: max(8px,0.8vw);
 
@@ -166,7 +182,7 @@ require_once("admin/model/Sql.php");
       font-size: max(8px,0.8vw);
       justify-content: center;
       align-items: center;
-      margin: 5vh 0 0 max(80px,8vw);
+      margin: 5vh 0 0 max(80px,16vw);
     }
 
     #button-dados:hover {
